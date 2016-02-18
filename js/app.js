@@ -15,6 +15,7 @@
   })
   .constant('CONF',{
     baseUrl : 'https://api.github.com',
-    user : '/user'
+    user : '/user',
+    users : '/users'
   });
 })();

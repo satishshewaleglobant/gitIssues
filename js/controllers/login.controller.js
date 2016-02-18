@@ -13,8 +13,8 @@
     $scope.password = "sat22288318";
 
     $scope.submitClicked  = function(){
-      console.log("Username  : " + this.username);
-      console.log("password : " + this.password);
+      // console.log("Username  : " + this.username);
+      // console.log("password : " + this.password);
       // var params = {
       //     url: 'https://api.github.com/repos/satishewale/WoW/issues',
       //     method: 'POST',
@@ -28,7 +28,7 @@
         method : 'GET',
         headers: {'Content-Type': 'application/json','Authorization' : encodedString }
       };
-      console.log('params : ', params);
+      // console.log('params : ', params);
 
       httpUtil.makeCall(params,function(err, response){
 
