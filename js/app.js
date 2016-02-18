@@ -16,6 +16,7 @@
   .constant('CONF',{
     baseUrl : 'https://api.github.com',
     user : '/user',
-    users : '/users'
+    users : '/users',
+    crateIssue : '/repos'
   });
 })();
