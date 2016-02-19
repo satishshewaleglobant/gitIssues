@@ -3,22 +3,26 @@
   .module('gitIssueViewer')
   .controller('AddissueController',AddissueController);
 
-  AddissueController.$inject = ['$scope','CONF', 'httpUtil','$rootScope', '$window'];
+  AddissueController.$inject = ['$scope','CONF', 'httpUtil','$rootScope', '$location'];
 
-  function AddissueController($scope, CONF, httpUtil,$rootScope,$window){
-      var  vm = this;
+  function AddissueController($scope, CONF, httpUtil,$rootScope,$location){
+    console.log( "location search : " + $location.search().name);
 
       $scope.createIssue = function(){
         var data = {
-          title : vm.title
+          title : $scope.title
         }
-          var params = {
-            url : CONF.baseUrl + CONF.crateIssue  + '/' + $rootScope.username + '/' + $rootScope.repoName +'/issues',
-            method : 'POST',
-             data: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json','Authorization' : $rootScope.authKey }
-          };
-          // console.log('params : ', params);
+
+        console.log("title : " +  $scope.title);
+
+        var params = {
+          url : CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + $rootScope.repoName + CONF.issues,
+          method : 'POST',
+           data: JSON.stringify(data),
+          headers: {'Content-Type': 'application/json','Authorization' : $rootScope.authKey }
+        };
+
+          console.log('params : ', params);
 
           httpUtil.makeCall(params,function(err, response){
 
@@ -31,12 +35,8 @@
               return;
             }
 
-            var data  =  response.data;
-            $rootScope.username = data.login;
-            $rootScope.authKey = encodedString;
             $window.location.href='#/dashboard';
           });
       }
     }
-  }
 })();

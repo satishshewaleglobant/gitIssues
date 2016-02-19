@@ -8,7 +8,8 @@
     return {
       restrict : 'EA',
       scope : {
-        url : '=githubIssuesDirective'
+        url : '=githubIssuesDirective',
+        data : "="
       },
       link : linkFunction
     };
@@ -34,7 +35,7 @@
             console.error("Error while fetching the reposeteries");
             return;
           }
-          $scope.issueData = response.data;
+          $scope.data = response.data;
         });
       }
 

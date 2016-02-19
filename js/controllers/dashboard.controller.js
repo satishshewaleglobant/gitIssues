@@ -3,14 +3,16 @@
   .module('gitIssueViewer')
   .controller('DashboardController',DashboardController);
 
-  DashboardController.$inject = ['$scope','CONF', 'httpUtil', '$rootScope'];
+  DashboardController.$inject = ['$scope','CONF', 'httpUtil', '$rootScope','$window'];
 
-  function DashboardController($scope, CONF, httpUtil, $rootScope){
+  function DashboardController($scope, CONF, httpUtil, $rootScope, $window){
     console.log('Into the Login controller :' +  CONF.baseUrl);
+    $scope.issueData = [];
+    $rootScope.repoName = null;
 
     //Initialize repo dropdown
     fetchRepo();
-    
+
     /**
     * Function use to fetch all available reposetirs to users
     */
@@ -30,11 +32,21 @@
 
         if(err || !response || !response.data){
           //show error message
-          console.error("Error while fetching the reposeteries");
+          console.log("Error while fetching the reposeteries");
           return;
         }
         $scope.repos = response.data;
       });
     }
+
+    $scope.dropdownClick = function(name){
+      $rootScope.repoName = name;
+      console.log("repoName : " + name);
+      $scope.issueUrl = CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ name + CONF.issues;
+    };
+
+    $scope.editIssue = function(issueNumber){
+      $window.location.href='#addIssue/edit?number='+issueNumber;
+    };
   }
 })();
