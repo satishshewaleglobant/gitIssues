@@ -44,10 +44,6 @@
       * watch url for changes
       */
       $scope.$watch('url',function(newValue,oldValue){
-
-        console.log("came here :newValue" + newValue);
-        console.log("came here :oldValue" + oldValue);
-
         if(newValue){
           fetchIssues(newValue);
         }

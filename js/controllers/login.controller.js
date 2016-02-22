@@ -3,24 +3,16 @@
   .module('gitIssueViewer')
   .controller('LoginController',LoginController);
 
-  LoginController.$inject = ['$scope','CONF', 'httpUtil','$rootScope', '$window'];
+  LoginController.$inject = ['$scope','CONF', 'httpUtil','$rootScope', '$window','sessionFactory'];
 
-  function LoginController($scope, CONF, httpUtil,$rootScope,$window){
+  function LoginController($scope, CONF, httpUtil, $rootScope, $window, sessionFactory){
     //console.log('Into the Login controller :' +  CONF.baseUrl);
     var vm = this;
 
-    $scope.username = "satishewale@gmail.com";
-    $scope.password = "sat22288318";
+    $scope.username = "";
+    $scope.password = "";
 
     $scope.submitClicked  = function(){
-      // console.log("Username  : " + this.username);
-      // console.log("password : " + this.password);
-      // var params = {
-      //     url: 'https://api.github.com/repos/satishewale/WoW/issues',
-      //     method: 'POST',
-      //     data: JSON.stringify({ title : "This is through login"}),
-      //     headers: {'Content-Type': 'application/json','Authorization' : 'Basic c2F0aXNoZXdhbGU6c2F0MjIyODgzMTg=' }
-      // };
 
       var encodedString = 'Basic '+ btoa(this.username+':'+this.password);
       var params = {
@@ -28,7 +20,6 @@
         method : 'GET',
         headers: {'Content-Type': 'application/json','Authorization' : encodedString }
       };
-      // console.log('params : ', params);
 
       httpUtil.makeCall(params,function(err, response){
 
@@ -42,10 +33,12 @@
         }
 
         var data  =  response.data;
+        sessionFactory.set('username',data.login);
+        sessionFactory.set('authKey',encodedString);
         $rootScope.username = data.login;
         $rootScope.authKey = encodedString;
         $window.location.href='#/dashboard';
-      })
+      });
     }
   }
 })();
