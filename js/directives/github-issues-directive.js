@@ -22,7 +22,8 @@
         var params = {
           url : issueUrl,
           method : 'GET',
-          headers: {'Content-Type': 'application/json'}
+          headers: {'Content-Type': 'application/json' },
+          cache : false
         };
 
         httpUtil.makeCall(params,function(err, response){
@@ -44,7 +45,10 @@
       */
       $scope.$watch('url',function(newValue,oldValue){
 
-        if(newValue && newValue !== oldValue){
+        console.log("came here :newValue" + newValue);
+        console.log("came here :oldValue" + oldValue);
+
+        if(newValue){
           fetchIssues(newValue);
         }
       });

@@ -1,8 +1,8 @@
-<div>
+<div github-issues-directive="issueUrl" data="issueData">
   <div class="form-group">
   <label for="usr">Title:</label>
   <input type="text" class="form-control" id="usr" ng-model="title" />
 </div>
 <a href="#/dashboard" class="btn btn-primary" role="button">Back</a>
-<button type="button" class="btn btn-primary disabled" ng-class="title ? 'active' : 'disabled'" ng-click = "createIssue()">Create New Issue</button>
+<button type="button" class="btn btn-primary disabled" ng-class="title ? 'active' : 'disabled'" ng-click = "createIssue()" ng-bind="edittable ? 'Update' : 'Create New Issue'"></button>
 </div>

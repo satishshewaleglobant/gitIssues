@@ -46,7 +46,7 @@
     };
 
     $scope.editIssue = function(issueNumber){
-      $window.location.href='#addIssue/edit?number='+issueNumber;
+      $window.location.href='#addIssue?issueNumber='+issueNumber;
     };
   }
 })();
