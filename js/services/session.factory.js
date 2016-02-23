@@ -27,7 +27,7 @@
     };
 
     factory.destroySession = function(){
-      sessionStorage.data = null;
+      sessionStorage.clear();
     };
 
     factory.restoreRootFromSession = function(){
