@@ -6,7 +6,7 @@
 
   function httpUtil($http){
     this.makeCall = function(params,cb){
-      $http.defaults.cache = false;
+      params.cache = false;
       $http(params).then(function mySucces(response) {
            cb(null,response);
        }, function myError(response) {
@@ -14,5 +14,4 @@
        });
      }
   }
-
 })();

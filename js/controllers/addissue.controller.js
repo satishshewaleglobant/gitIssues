@@ -8,8 +8,9 @@
   function AddissueController($scope, CONF, httpUtil,$rootScope, $location , $window , sessionFactory){
       sessionFactory.initSession();
       var issueNumber = $location.search().issueNumber;
+      $scope.repoName = $location.search().repoName;
       $scope.edittable = issueNumber ? true  : false;
-      var url  = (CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + sessionFactory.get('repoName') + CONF.issues) + ($scope.edittable ? ("/" + issueNumber) : '');
+      var url  = (CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + $scope.repoName + CONF.issues) + ($scope.edittable ? ("/" + issueNumber) : '');
       $scope.loading= false;
 
       if(issueNumber){
@@ -22,7 +23,7 @@
           title : this.title,
           body : this.description ? this.description : ''
         };
-        
+
         console.log("data " ,data);
         var params = {
           url : url,
@@ -45,7 +46,7 @@
               return;
             };
 
-            $window.location.href='#/dashboard';
+            $window.location.href='#/dashboard?repoName='+$scope.repoName;
           });
       }
 

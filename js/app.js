@@ -17,6 +17,10 @@
         controller : 'AddissueController',
         controllerAs : 'ac'
       });
+
+      
+      // $httpProvider.defaults.headers.common['Pragma'] = 'no-cache';
+      // $httpProvider.defaults.headers.common['Expires'] = '0';
   })
   .constant('CONF',{
     baseUrl : 'https://api.github.com',

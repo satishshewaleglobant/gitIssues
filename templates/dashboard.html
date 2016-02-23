@@ -36,7 +36,7 @@
                     <tr ng-repeat="obj in issueData | filter:query">
                         <td>{{$index + 1 }}</td>
                         <td>{{obj.title}}</td>
-                        <td><a href="#addIssue?issueNumber={{obj.number}}" class="btn btn-link" role="button">Edit</a><button type="button" class="btn btn-info" ng-click="closeIssue(obj.number)">Close</button></td>
+                        <td><a href="#addIssue?issueNumber={{obj.number}}&repoName={{repoName}}" class="btn btn-link" role="button">Edit</a><button type="button" class="btn btn-info" ng-click="closeIssue(obj.number)">Close</button></td>
                   </tr>
                 </tbody>
               </table>

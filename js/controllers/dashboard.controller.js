@@ -3,16 +3,20 @@
   .module('gitIssueViewer')
   .controller('DashboardController',DashboardController);
 
-  DashboardController.$inject = ['$scope','CONF', 'httpUtil', '$rootScope','$window','sessionFactory'];
+  DashboardController.$inject = ['$scope','CONF', 'httpUtil', '$rootScope','$window','sessionFactory','$location'];
 
-  function DashboardController($scope, CONF, httpUtil, $rootScope, $window, sessionFactory){
-    console.log('Into the Login controller :' +  CONF.baseUrl);
+  function DashboardController($scope, CONF, httpUtil, $rootScope, $window, sessionFactory, $location){
     $scope.issueData = [];
     $scope.repoName = null;
     $scope.loading= false;
 
     if(sessionFactory.initSession()){
       fetchRepo();
+      var temp = $location.search().repoName;
+      if(temp){
+        $scope.repoName = temp;
+        $scope.issueUrl = CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ $scope.repoName + CONF.issues;
+      }
     };
 
     /**
@@ -43,8 +47,8 @@
 
     $scope.dropdownClick = function(name){
       $scope.repoName = name;
-      sessionFactory.set('repoName', name);
       $scope.issueUrl = CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ name + CONF.issues;
+      $location.search({'repoName' : name});
     };
 
     $scope.closeIssue = function(issueNumber){
@@ -52,7 +56,7 @@
       console.log("came into close issue ");
 
       $scope.loading= true;
-      var url  = (CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + sessionFactory.get('repoName') + CONF.issues + "/" + issueNumber);
+      var url  = (CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + $scope.repoName + CONF.issues + "/" + issueNumber);
       var data = {
         state : 'close',
       };
