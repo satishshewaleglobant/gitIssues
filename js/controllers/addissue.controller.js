@@ -17,7 +17,8 @@
 
       $scope.createIssue = function(){
         var data = {
-          title : $scope.title
+          title : $scope.title,
+          body : $scope.description
         };
         var params = {
           url : url,
@@ -58,6 +59,7 @@
         }
         //bind all model varibles here
         $scope.title = obj.title;
+        $scope.description = obj.body;
       }
     }
 })();
