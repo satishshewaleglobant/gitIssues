@@ -35,8 +35,8 @@
         var data  =  response.data;
         sessionFactory.set('username',data.login);
         sessionFactory.set('authKey',encodedString);
-        $rootScope.username = data.login;
-        $rootScope.authKey = encodedString;
+        // $rootScope.username = data.login;
+        // $rootScope.authKey = encodedString;
         $window.location.href='#/dashboard';
       });
     }

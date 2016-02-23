@@ -16,8 +16,14 @@
       return sessionStorage[key];
     }
 
-    factory.initSession = function(params){
-      sessionStorage.data = params;
+    factory.initSession = function(){
+      if(factory.validateSession()){
+          factory.restoreRootFromSession();
+          return true;
+        }else {
+            factory.destroySession();
+            $window.location.href='#/';
+        };
     };
 
     factory.destroySession = function(){

@@ -3,15 +3,16 @@
   .module('gitIssueViewer')
   .controller('DashboardController',DashboardController);
 
-  DashboardController.$inject = ['$scope','CONF', 'httpUtil', '$rootScope','$window'];
+  DashboardController.$inject = ['$scope','CONF', 'httpUtil', '$rootScope','$window','sessionFactory'];
 
-  function DashboardController($scope, CONF, httpUtil, $rootScope, $window){
+  function DashboardController($scope, CONF, httpUtil, $rootScope, $window, sessionFactory){
     console.log('Into the Login controller :' +  CONF.baseUrl);
     $scope.issueData = [];
-    $rootScope.repoName = null;
+    $scope.repoName = null;
 
-    //Initialize repo dropdown
-    fetchRepo();
+    if(sessionFactory.initSession()){
+      fetchRepo();
+    };
 
     /**
     * Function use to fetch all available reposetirs to users
@@ -40,8 +41,8 @@
     }
 
     $scope.dropdownClick = function(name){
-      $rootScope.repoName = name;
-      console.log("repoName : " + name);
+      $scope.repoName = name;
+      sessionFactory.set('repoName', name);
       $scope.issueUrl = CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ name + CONF.issues;
     };
 

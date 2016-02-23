@@ -3,15 +3,17 @@
   .module('gitIssueViewer')
   .controller('AddissueController',AddissueController);
 
-  AddissueController.$inject = ['$scope','CONF', 'httpUtil','$rootScope', '$location', '$window'];
+  AddissueController.$inject = ['$scope','CONF', 'httpUtil','$rootScope', '$location', '$window', 'sessionFactory'];
 
-  function AddissueController($scope, CONF, httpUtil,$rootScope, $location , $window){
+  function AddissueController($scope, CONF, httpUtil,$rootScope, $location , $window , sessionFactory){
+      sessionFactory.initSession();
       var issueNumber = $location.search().issueNumber;
       $scope.edittable = issueNumber ? true  : false;
-      var url  = (CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + $rootScope.repoName + CONF.issues) + ($scope.edittable ? ("/" + issueNumber) : '');
+      var url  = (CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + sessionFactory.get('repoName') + CONF.issues) + ($scope.edittable ? ("/" + issueNumber) : '');
+
       if(issueNumber){
           $scope.issueUrl = url;
-      }
+      };
 
       $scope.createIssue = function(){
         var data = {

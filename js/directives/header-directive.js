@@ -13,18 +13,13 @@
 
     //linking function for directive
     function linkFunction($scope, $el, $attr){
+      console.log("####### Link function");
 
       //write logic to destroy session and navigate to login page
       $scope.logout = function(){
         sessionFactory.destroySession();
         $window.location.href='#/';
       }
-      
-      if(sessionFactory.validateSession()){
-        sessionFactory.restoreRootFromSession();
-      }else {
-        $scope.logout();
-      };
     }
   }
 })();
