@@ -19,9 +19,11 @@
       $scope.createIssue = function(){
         $scope.loading= true;
         var data = {
-          title : $scope.title,
-          body : $scope.description
+          title : this.title,
+          body : this.description ? this.description : ''
         };
+        
+        console.log("data " ,data);
         var params = {
           url : url,
           method : $scope.edittable ? 'PATCH' : 'POST',
