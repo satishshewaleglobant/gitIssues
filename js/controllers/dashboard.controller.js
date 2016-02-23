@@ -9,6 +9,7 @@
     console.log('Into the Login controller :' +  CONF.baseUrl);
     $scope.issueData = [];
     $scope.repoName = null;
+    $scope.loading= false;
 
     if(sessionFactory.initSession()){
       fetchRepo();
@@ -46,8 +47,31 @@
       $scope.issueUrl = CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ name + CONF.issues;
     };
 
-    $scope.editIssue = function(issueNumber){
-      $window.location.href='#addIssue?issueNumber='+issueNumber;
+    $scope.closeIssue = function(issueNumber){
+
+      console.log("came into close issue ");
+
+      $scope.loading= true;
+      var url  = (CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + sessionFactory.get('repoName') + CONF.issues + "/" + issueNumber);
+      var data = {
+        state : 'close',
+      };
+      var params = {
+        url : url,
+        method : 'PATCH' ,
+         data: JSON.stringify(data),
+        headers: {'Content-Type': 'application/json','Authorization' : $rootScope.authKey }
+      };
+
+        httpUtil.makeCall(params,function(err, response){
+          $scope.loading = false;
+          if(err || !response || !response.data){
+            //show error message
+            console.error("Error while Authentication");
+            return;
+          };
+          $scope.issueUrl = CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ $scope.repoName + CONF.issues;
+        });
     };
   }
 })();

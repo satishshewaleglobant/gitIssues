@@ -22,9 +22,9 @@
              </tr>
         </tbody>
       </table>
-    <div github-issues-directive="issueUrl" data="issueData" ></div>
+    <div github-issues-directive="issueUrl" data="issueData" spinner="loading"></div>
     <div>
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover table-bordered" ng-if="!loading">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -36,9 +36,9 @@
                     <tr ng-repeat="obj in issueData | filter:query">
                         <td>{{$index + 1 }}</td>
                         <td>{{obj.title}}</td>
-                        <td><button type="button" ng-click="editIssue(obj.number)" class="btn btn-link">Edit</button><button type="button" ng-click="editIssue(obj.id)" class="btn btn-link" ng-click="deleteIssue(obj.id)">Delete</button></td>
+                        <td><a href="#addIssue?issueNumber={{obj.number}}" class="btn btn-link" role="button">Edit</a><button type="button" class="btn btn-info" ng-click="closeIssue(obj.number)">Close</button></td>
                   </tr>
                 </tbody>
               </table>
+              <div ng-include="'templates/loadingIndicator.html'"></div>
     </div>
-  <div>

@@ -9,7 +9,8 @@
       restrict : 'EA',
       scope : {
         url : '=githubIssuesDirective',
-        data : "="
+        data : "=",
+        spinner : "="
       },
       link : linkFunction
     };
@@ -19,6 +20,7 @@
 
       function fetchIssues(issueUrl){
 
+        $scope.spinner = true;
         var params = {
           url : issueUrl,
           method : 'GET',
@@ -30,6 +32,7 @@
 
           console.log("err ", err);
           console.log("response : ", response);
+          $scope.spinner = false;
 
           if(err || !response || !response.data){
             //show error message
@@ -47,6 +50,8 @@
         if(newValue){
           fetchIssues(newValue);
         }
+
+        console.log("came in watch");
       });
     }
   }

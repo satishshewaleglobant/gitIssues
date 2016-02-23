@@ -10,12 +10,14 @@
       var issueNumber = $location.search().issueNumber;
       $scope.edittable = issueNumber ? true  : false;
       var url  = (CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + sessionFactory.get('repoName') + CONF.issues) + ($scope.edittable ? ("/" + issueNumber) : '');
+      $scope.loading= false;
 
       if(issueNumber){
           $scope.issueUrl = url;
       };
 
       $scope.createIssue = function(){
+        $scope.loading= true;
         var data = {
           title : $scope.title,
           body : $scope.description
@@ -33,6 +35,7 @@
 
             console.log("err ", err);
             console.log("response : ", response);
+            $scope.loading= false;
 
             if(err || !response || !response.data){
               //show error message

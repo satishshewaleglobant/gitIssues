@@ -1,22 +1,20 @@
 <header-directive></header-directive>
-<div github-issues-directive="issueUrl" data="issueData" style="width:50%">
-
-  <table class="table">
-      <tbody>
-          <tr>
-              <td><label for="usr">Title:</label></td>
-              <td><input type="text" class="form-control" id="usr" ng-model="title" /></td>
-           </tr>
-           <tr>
-               <td><label for="usr">Description:</label></td>
-              <td><textarea class="form-control" rows="5" id="comment" ng-model="description"></textarea><td>
-             </tr>
-      </tbody>
-    </table>
-  <!-- <div class="form-group">
-  <label for="usr">Title:</label>
-  <input type="text" class="form-control" id="usr" ng-model="title" />
-</div> -->
-<a href="#/dashboard" class="btn btn-primary" role="button">Back</a>
-<button type="button" class="btn btn-primary disabled" ng-class="title ? 'active' : 'disabled'" ng-click = "createIssue()" ng-bind="edittable ? 'Update' : 'Create New Issue'"></button>
+<div github-issues-directive="issueUrl" data="issueData" spinner="loading">
+    <div style="width:50%" ng-if="!loading">
+      <table class="table" >
+          <tbody>
+              <tr>
+                  <td><label for="usr">Title:</label></td>
+                  <td><input type="text" class="form-control" id="usr" ng-model="title" /></td>
+               </tr>
+               <tr>
+                   <td><label for="usr">Description:</label></td>
+                  <td><textarea class="form-control" rows="5" id="comment" ng-model="description"></textarea><td>
+                 </tr>
+          </tbody>
+        </table>
+          <a href="#/dashboard" class="btn btn-primary" role="button">Back</a>
+          <button type="button" class="btn btn-primary disabled" ng-class="title ? 'active' : 'disabled'" ng-click = "createIssue()" ng-bind="edittable ? 'Update' : 'Create New Issue'"></button>
+    </div>
+    <div ng-include="'templates/loadingIndicator.html'"></div>
 </div>
