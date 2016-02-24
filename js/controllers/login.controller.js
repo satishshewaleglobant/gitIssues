@@ -9,8 +9,8 @@
     //console.log('Into the Login controller :' +  CONF.baseUrl);
     var vm = this;
 
-    $scope.username = "satishewale@gmail.com";
-    $scope.password = "sat22288318";
+    $scope.username = "";
+    $scope.password = "";
 
     $scope.submitClicked  = function(){
 
