@@ -8,8 +8,8 @@
                 <td>  <div class="dropdown">
                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-bind="repoName ? repoName : 'Select Repository'">
                      <span class="caret"></span></button>
-                     <ul class="dropdown-menu" ng-repeat='obj in repos' ng-click="dropdownClick(obj.name)" >
-                       <li>{{obj.name}}</li>
+                     <ul class="dropdown-menu">
+                       <li ng-repeat='obj in repos' ng-click="dropdownClick(obj.name)">{{obj.name}}</li>
                      </ul>
                    </div>
                  </td>

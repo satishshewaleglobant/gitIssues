@@ -3,14 +3,14 @@
   .module('gitIssueViewer')
   .controller('LoginController',LoginController);
 
-  LoginController.$inject = ['$scope','CONF', 'httpUtil','$rootScope', '$window','sessionFactory'];
+  LoginController.$inject = ['$scope','CONF', 'httpUtil','$rootScope', '$window','sessionFactory','$location'];
 
-  function LoginController($scope, CONF, httpUtil, $rootScope, $window, sessionFactory){
+  function LoginController($scope, CONF, httpUtil, $rootScope, $window, sessionFactory, $location){
     //console.log('Into the Login controller :' +  CONF.baseUrl);
     var vm = this;
 
-    $scope.username = "";
-    $scope.password = "";
+    $scope.username = "satishewale@gmail.com";
+    $scope.password = "sat22288318";
 
     $scope.submitClicked  = function(){
 
@@ -35,10 +35,8 @@
         var data  =  response.data;
         sessionFactory.set('username',data.login);
         sessionFactory.set('authKey',encodedString);
-        // $rootScope.username = data.login;
-        // $rootScope.authKey = encodedString;
-        $window.location.href='#/dashboard';
-      });
+        $location.url('/dashboard');
+    });
     }
   }
 })();
