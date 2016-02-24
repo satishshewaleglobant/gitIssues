@@ -29,11 +29,7 @@
         };
 
         httpUtil.makeCall(params,function(err, response){
-
-          console.log("err ", err);
-          console.log("response : ", response);
           $scope.spinner = false;
-
           if(err || !response || !response.data){
             //show error message
             console.error("Error while fetching the reposeteries");
@@ -50,8 +46,6 @@
         if(newValue){
           fetchIssues(newValue);
         }
-
-        console.log("came in watch");
       });
     }
   }

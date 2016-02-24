@@ -15,7 +15,7 @@
       var temp = $location.search().repoName;
       if(temp){
         $scope.repoName = temp;
-        $scope.issueUrl = CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ $scope.repoName + CONF.issues;
+        $scope.issueUrl = buildIssueUrl();
       }
     };
 
@@ -47,7 +47,7 @@
 
     $scope.dropdownClick = function(name){
       $scope.repoName = name;
-      $scope.issueUrl = CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ name + CONF.issues;
+      $scope.issueUrl = buildIssueUrl();
       $location.search({'repoName' : name});
     };
 
@@ -74,8 +74,12 @@
             console.error("Error while Authentication");
             return;
           };
-          $scope.issueUrl = CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ $scope.repoName + CONF.issues;
+          $scope.issueUrl = buildIssueUrl();
         });
     };
+
+    function buildIssueUrl(){
+      return (CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ $scope.repoName + CONF.issues +'?t='+ new Date().getTime());
+    }
   }
 })();
