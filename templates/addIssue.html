@@ -1,4 +1,8 @@
 <header-directive></header-directive>
+<div class="alert alert-danger fade in" ng-if="ac.errorMessage">
+   <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+   <strong>Error!</strong> {{ac.errorMessageText}}
+ </div>
 <div github-issues-directive="issueUrl" data="issueData" spinner="loading">
   <div style="width:50%" ng-if="!loading">
     <table class="table">

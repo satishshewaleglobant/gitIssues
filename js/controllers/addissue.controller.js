@@ -7,11 +7,14 @@
 
   function AddissueController($scope, CONF, httpUtil, $rootScope, $location, $window, sessionFactory) {
     sessionFactory.initSession();
+    var vm = this;
+    this.errorMessage = false;
     var issueNumber = $location.search().issueNumber;
     $scope.repoName = $location.search().repoName;
     $scope.edittable = issueNumber ? true : false;
     var url = (CONF.baseUrl + CONF.repos + '/' + $rootScope.username + '/' + $scope.repoName + CONF.issues) + ($scope.edittable ? ("/" + issueNumber) : '');
     $scope.loading = false;
+
 
     if (issueNumber) {
       $scope.issueUrl = url;
@@ -45,7 +48,9 @@
 
         if (err || !response || !response.data) {
           //show error message
-          console.error("Error while Authentication");
+          vm.errorMessage = true;
+          vm.errorMessageText = err;
+          console.error("Error while createIssue");
           return;
         };
 
