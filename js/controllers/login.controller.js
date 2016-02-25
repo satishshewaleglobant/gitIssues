@@ -11,6 +11,7 @@
 
     $scope.username = "";
     $scope.password = "";
+    vm.errorMessage = false;
 
     $scope.submitClicked = function() {
 
@@ -31,6 +32,7 @@
 
         if (err || !response || !response.data) {
           //show error message
+          vm.errorMessage = true;
           console.error("Error while Authentication");
           return;
         }
