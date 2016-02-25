@@ -1,20 +1,25 @@
 <header-directive></header-directive>
 <div github-issues-directive="issueUrl" data="issueData" spinner="loading">
-    <div style="width:50%" ng-if="!loading">
-      <table class="table" >
-          <tbody>
-              <tr>
-                  <td><label for="usr">Title:</label></td>
-                  <td><input type="text" class="form-control"  ng-model="title" /></td>
-               </tr>
-               <tr>
-                   <td><label for="usr">Description:</label></td>
-                  <td><textarea class="form-control" rows="5"  ng-model="description"></textarea><td>
-                 </tr>
+  <div style="width:50%" ng-if="!loading">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>
+            <label for="usr">Title:</label>
+          </td>
+          <td><input type="text" class="form-control" ng-model="title"/></td>
+        </tr>
+        <tr>
+          <td>
+            <label for="usr">Description:</label>
+          </td>
+          <td>
+            <textarea class="form-control" rows="5" ng-model="description"></textarea>
+            <td></tr>
           </tbody>
         </table>
-          <a href="#/dashboard?repoName={{repoName}}" class="btn btn-primary" role="button">Back</a>
-          <button type="button" class="btn btn-primary disabled" ng-class="title ? 'active' : 'disabled'" ng-click = "createIssue()" ng-bind="edittable ? 'Update' : 'Create New Issue'"></button>
+        <a href="#/dashboard?repoName={{repoName}}" class="btn btn-primary" role="button">Back</a>
+        <button type="button" class="btn btn-primary disabled" ng-class="title ? 'active' : 'disabled'" ng-click="createIssue()" ng-bind="edittable ? 'Update' : 'Create New Issue'"></button>
+      </div>
+      <div ng-include="'templates/loadingIndicator.html'"></div>
     </div>
-    <div ng-include="'templates/loadingIndicator.html'"></div>
-</div>

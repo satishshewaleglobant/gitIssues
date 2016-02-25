@@ -2,43 +2,53 @@
 
   <header-directive></header-directive>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <td>  <div class="dropdown">
-                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-bind="repoName ? repoName : 'Select Repository'">
-                     <span class="caret"></span></button>
-                     <ul class="dropdown-menu">
-                       <li ng-repeat='obj in repos' ng-click="dropdownClick(obj.name)">{{obj.name}}</li>
-                     </ul>
-                   </div>
-                 </td>
-                <td> <div>
-                   <a href="#/addIssue?repoName={{repoName}}" class="btn btn-primary" ng-class="repoName ? 'active' : 'disabled'" role="button">Create New Issue</a>
-                 </div>
-               </td>
-               <td><h4>Search : </h4></td>
-               <td><input ng-model="query" /> </td>
-             </tr>
-        </tbody>
-      </table>
-    <div github-issues-directive="issueUrl" data="issueData" spinner="loading"></div>
-    <div>
-            <table class="table table-hover table-bordered" ng-if="!loading">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="obj in issueData | filter:query">
-                        <td>{{$index + 1 }}</td>
-                        <td>{{obj.title}}</td>
-                        <td><a href="#addIssue?issueNumber={{obj.number}}&repoName={{repoName}}" class="btn btn-link" role="button">Edit</a><button type="button" class="btn btn-info" ng-click="closeIssue(obj.number)">Close</button></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div ng-include="'templates/loadingIndicator.html'"></div>
-    </div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-bind="repoName ? repoName : 'Select Repository'">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat='obj in repos' ng-click="dropdownClick(obj.name)">{{obj.name}}</li>
+            </ul>
+          </div>
+        </td>
+        <td>
+          <div>
+            <a href="#/addIssue?repoName={{repoName}}" class="btn btn-primary" ng-class="repoName ? 'active' : 'disabled'" role="button">Create New Issue</a>
+          </div>
+        </td>
+        <td>
+          <h4>Search :
+          </h4>
+        </td>
+        <td><input ng-model="query"/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div github-issues-directive="issueUrl" data="issueData" spinner="loading"></div>
+  <div>
+    <table class="table table-hover table-bordered" ng-if="!loading">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="obj in issueData | filter:query">
+          <td>{{$index + 1 }}</td>
+          <td>{{obj.title}}</td>
+          <td>
+            <a href="#addIssue?issueNumber={{obj.number}}&repoName={{repoName}}" class="btn btn-link" role="button">Edit</a>
+            <button type="button" class="btn btn-info" ng-click="closeIssue(obj.number)">Close</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div ng-include="'templates/loadingIndicator.html'"></div>
+  </div>

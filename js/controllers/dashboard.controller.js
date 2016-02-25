@@ -1,42 +1,44 @@
-(function(){
+(function() {
   angular
-  .module('gitIssueViewer')
-  .controller('DashboardController',DashboardController);
+    .module('gitIssueViewer')
+    .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$scope','CONF', 'httpUtil', '$rootScope','$window','sessionFactory','$location'];
+  DashboardController.$inject = ['$scope', 'CONF', 'httpUtil', '$rootScope', '$window', 'sessionFactory', '$location'];
 
-  function DashboardController($scope, CONF, httpUtil, $rootScope, $window, sessionFactory, $location){
+  function DashboardController($scope, CONF, httpUtil, $rootScope, $window, sessionFactory, $location) {
     $scope.issueData = [];
     $scope.repoName = null;
-    $scope.loading= false;
+    $scope.loading = false;
 
-    if(sessionFactory.initSession()){
+    if (sessionFactory.initSession()) {
       fetchRepo();
       var temp = $location.search().repoName;
-      if(temp){
+      if (temp) {
         $scope.repoName = temp;
         $scope.issueUrl = buildIssueUrl();
       }
     };
 
     /**
-    * Function use to fetch all available reposetirs to users
-    */
-    function fetchRepo(){
+     * Function use to fetch all available reposetirs to users
+     */
+    function fetchRepo() {
 
       var params = {
-        url : CONF.baseUrl + CONF.users + '/'+ $rootScope.username +'/repos',
-        method : 'GET',
-        headers: {'Content-Type': 'application/json'}
+        url: CONF.baseUrl + CONF.users + '/' + $rootScope.username + '/repos',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       };
       console.log('params : ', params);
 
-      httpUtil.makeCall(params,function(err, response){
+      httpUtil.makeCall(params, function(err, response) {
 
         console.log("err ", err);
         console.log("response : ", response);
 
-        if(err || !response || !response.data){
+        if (err || !response || !response.data) {
           //show error message
           console.log("Error while fetching the reposeteries");
           return;
@@ -45,41 +47,46 @@
       });
     }
 
-    $scope.dropdownClick = function(name){
+    $scope.dropdownClick = function(name) {
       $scope.repoName = name;
       $scope.issueUrl = buildIssueUrl();
-      $location.search({'repoName' : name});
+      $location.search({
+        'repoName': name
+      });
     };
 
-    $scope.closeIssue = function(issueNumber){
+    $scope.closeIssue = function(issueNumber) {
 
       console.log("came into close issue ");
 
-      $scope.loading= true;
-      var url  = (CONF.baseUrl + CONF.repos  + '/' + $rootScope.username + '/' + $scope.repoName + CONF.issues + "/" + issueNumber);
+      $scope.loading = true;
+      var url = (CONF.baseUrl + CONF.repos + '/' + $rootScope.username + '/' + $scope.repoName + CONF.issues + "/" + issueNumber);
       var data = {
-        state : 'close',
+        state: 'close',
       };
       var params = {
-        url : url,
-        method : 'PATCH' ,
-         data: JSON.stringify(data),
-        headers: {'Content-Type': 'application/json','Authorization' : $rootScope.authKey }
+        url: url,
+        method: 'PATCH',
+        data: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': $rootScope.authKey
+        }
       };
 
-        httpUtil.makeCall(params,function(err, response){
-          $scope.loading = false;
-          if(err || !response || !response.data){
-            //show error message
-            console.error("Error while Authentication");
-            return;
-          };
-          $scope.issueUrl = buildIssueUrl();
-        });
+      httpUtil.makeCall(params, function(err, response) {
+        $scope.loading = false;
+        if (err || !response || !response.data) {
+          //show error message
+          console.error("Error while Authentication");
+          return;
+        };
+        $scope.issueUrl = buildIssueUrl();
+      });
     };
 
-    function buildIssueUrl(){
-      return (CONF.baseUrl+CONF.repos+ '/'+ $rootScope.username +'/'+ $scope.repoName + CONF.issues +'?t='+ new Date().getTime());
+    function buildIssueUrl() {
+      return (CONF.baseUrl + CONF.repos + '/' + $rootScope.username + '/' + $scope.repoName + CONF.issues + '?t=' + new Date().getTime());
     }
   }
 })();
