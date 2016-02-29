@@ -1,4 +1,5 @@
 (function() {
+  'use strict'
   angular.module('gitIssueViewer')
     .directive('headerDirective', headerDirective);
 

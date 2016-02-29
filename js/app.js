@@ -1,4 +1,5 @@
 (function() {
+  'use strict'
   angular.module("gitIssueViewer", ['ngRoute'])
     .config(function($routeProvider) {
       $routeProvider

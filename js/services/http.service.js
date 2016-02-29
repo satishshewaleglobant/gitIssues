@@ -1,4 +1,5 @@
 (function() {
+  'use strict'
   angular.module('gitIssueViewer')
     .service('httpUtil', httpUtil);
 
